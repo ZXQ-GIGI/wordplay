@@ -1,0 +1,30 @@
+{
+  "name": "",  
+  "author": "",
+  "title": "",
+  "subTitle": "", 
+  "backgroundMusic": "",
+  "backgroundImage": "",
+  "duration": 0,
+  "chapters": [
+    {
+      "name": "Chapter 1",
+      "title": "Chapter 1",
+      "subTitle": "",
+      "backgroundMusic": "",
+      "backgroundImage": "",
+      "duration": 0,
+      "transition": "",
+      "frames": [
+        {
+          "name": "Frame 1",
+          "narration": "Frame 1",
+          "caption": "",
+          "duration": 0,
+          "actions": ["Yes", "No"],
+          "actionsGoTo": ["Chapter 3", "Chapter 4"]
+        }
+      ]
+    }
+  ]
+}
