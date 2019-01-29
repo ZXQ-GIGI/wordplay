@@ -15,14 +15,14 @@
       "backgroundImage": "",
       "duration": 0,
       "transition": "",
-      "frames": [
+      "dialogues": [
         {
           "name": "Frame 1",
           "narration": "Frame 1",
           "caption": "",
           "duration": 0,
-          "actions": ["Yes", "No"],
-          "actionsGoTo": ["Chapter 3", "Chapter 4"]
+          "actions": ["1", "2", "3"],
+          "actionsNext": ["Frame 2", "START", "END"]
         }
       ]
     }
