@@ -17,12 +17,17 @@
       "transition": "",
       "dialogues": [
         {
-          "name": "Frame 1",
-          "narration": "Frame 1",
+          "name": "Dialogue 1",
+          "narration": "Dialogue 1",
           "caption": "",
           "duration": 0,
-          "actions": ["1", "2", "3"],
-          "actionsNext": ["Frame 2", "START", "END"]
+          "actions": [
+            {
+              "type": "next || end",
+              "name": "Action 1",
+              "next": "Dialogue 3"
+            }
+          ]
         }
       ]
     }
