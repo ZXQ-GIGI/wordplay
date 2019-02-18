@@ -1,5 +1,5 @@
 import ChapterConfig from './interface/ChapterConfig';
-import DialogueConfig from './interface/DialogueConfig';
+import Dialogue from './dialogue';
 
 export default class Chapter {
   public name: string;
@@ -9,7 +9,7 @@ export default class Chapter {
   public backgroundImage?: string;
   public duration?: number;
   public transition?: string;
-  public dialogues?: DialogueConfig[];
+  public dialogues?: Dialogue[];
 
   constructor(chapter: ChapterConfig) {
     this.name = chapter.name;
@@ -19,6 +19,6 @@ export default class Chapter {
     this.backgroundImage = chapter.backgroundImage;
     this.duration = chapter.duration;
     this.transition = chapter.transition;
-    this.dialogues = chapter.dialogues;
+    this.dialogues = (chapter.dialogues || []).map(dialogue => new Dialogue(dialogue));
   }
 }

@@ -1,19 +1,22 @@
 import DialogueConfig from './interface/DialogueConfig';
+import Action from './action';
 
 export default class Dialogue {
-  public name: string;
-  public narration?: string;
-  public caption?: string;
-  public duration?: number;
-  public actions?: string[];
-  public actionsGoTo?: string[];
+  private name: string;
+  private narration?: string;
+  private caption?: string;
+  private duration?: number;
+  private actions?: Action[];
 
   constructor(dialogue: DialogueConfig) {
     this.name = dialogue.name;
     this.narration = dialogue.narration;
     this.caption = dialogue.caption;
     this.duration = dialogue.duration;
-    this.actions = dialogue.actions;
-    this.actionsGoTo = dialogue.actionsGoTo;
+    this.actions = (dialogue.actions || []).map(action => new Action(action));
+  }
+
+  public render() {
+    return;
   }
 }
