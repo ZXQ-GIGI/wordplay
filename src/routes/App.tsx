@@ -15,7 +15,7 @@ class App extends React.Component {
     return (
       <div className="App">
         {/* <input type="file" accept="text/*.json" alt=""/> */}
-        <div id='wordplay'/>
+        <div id='wordplay' style={{width: 800, height: 600, color: '#fff'}}/>
         {/* <button id="kf">在线客服</button> */}
       </div>
     );
