@@ -1,5 +1,4 @@
 import Render from './render';
-import Music from './music';
 
 export default class RenderStart extends Render{
   constructor() {
@@ -31,27 +30,6 @@ export default class RenderStart extends Render{
     parentElement.appendChild(authorElement);
   }
 
-  public drawTitle(parentElement: HTMLElement, title: string) {
-    const titleElement = document.createElement('div');
-    titleElement.className = 'wp_title';
-    const text = document.createElement('span');
-    text.innerText = title;
-    titleElement.appendChild(text);
-    parentElement.appendChild(titleElement);
-  }
-
-  public drawSubTitle(parentElement: HTMLElement, subTitle?: string) {
-    if (!subTitle) {
-      return;
-    };
-    const subTitleElement = document.createElement('div');
-    subTitleElement.className = 'wp_title';
-    const text = document.createElement('span');
-    text.innerText = subTitle;
-    subTitleElement.appendChild(text);
-    parentElement.appendChild(subTitleElement);
-  } 
-
   public drawStartButton(parentElement: HTMLElement, onStart: () => void): void {
     const startButton = document.createElement('button');
     startButton.className = 'wp_start';
@@ -59,21 +37,5 @@ export default class RenderStart extends Render{
     startButton.style.color = '#fff';
     startButton.onclick = onStart;
     parentElement.appendChild(startButton);
-  }
-
-  public drawBackgroundMusic(parentElement: HTMLElement, backgroundMusic?: string) {
-    if (!backgroundMusic) {
-      return;
-    }
-    const music = new Music(parentElement, backgroundMusic);
-    music.play();
-  }
-
-  public drawBackgroundImage(parentElement: HTMLElement, backgroundImage?: string) {
-    if (!backgroundImage) {
-      return;
-    }
-    parentElement.style.backgroundImage = `url(${backgroundImage})`;
-    parentElement.style.backgroundSize = 'contain';
   }
 }
