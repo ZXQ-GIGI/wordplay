@@ -1,5 +1,6 @@
 import WordplayConfig from './interface/WordplayConfig';
 import Chapter from './chapter';
+import ChapterController from './chapterController';
 import RenderStart from './render/renderStart';
 import Music from './render/music';
 
@@ -7,6 +8,7 @@ export default class WordPlay {
   public rootElement: HTMLElement;
   public wordplayElement: HTMLElement;
   public music: Music;
+  public chapterController: ChapterController;
 
   private name: string;
   private author: string;
@@ -35,10 +37,17 @@ export default class WordPlay {
 
     this.init(nodeId);
     this.render(self);
+    this.chapterController = new ChapterController(this.chapters);
+
   }
 
   public start(self: WordPlay) {
     self.clear();
+    this.chapterController.start();
+  }
+
+  private end() {
+    console.log('end');
   }
 
   private render(self: WordPlay) {
@@ -58,9 +67,6 @@ export default class WordPlay {
     });
   }
 
-  private end() {
-    console.log('end');
-  }
 
   private clear() {
     if (!this.wordplayElement) {
