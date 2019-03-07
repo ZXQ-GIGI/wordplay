@@ -2,12 +2,10 @@ import WordplayConfig from './interface/WordplayConfig';
 import Chapter from './chapter';
 import ChapterController from './chapterController';
 import RenderStart from './render/renderStart';
-import Music from './render/music';
 
 export default class WordPlay {
   public rootElement: HTMLElement;
   public wordplayElement: HTMLElement;
-  public music: Music;
   public chapterController: ChapterController;
 
   private name: string;
@@ -16,7 +14,6 @@ export default class WordPlay {
   private subTitle?: string;
   private backgroundMusic?: string;
   private backgroundImage?: string;
-  private duration?: number;
   private chapters?: Chapter[];
 
   private INIT_NODE_WIDTH = 400;
@@ -24,38 +21,37 @@ export default class WordPlay {
   private INIT_NODE_BACKGROUND_COLOR = 'rgba(123, 123, 123, .5)';
 
   constructor(nodeId = '', wordplay: WordplayConfig) { 
-    const self: WordPlay = this;
-
     this.name = wordplay.name;
     this.author = wordplay.author;
     this.title = wordplay.title;
     this.subTitle = wordplay.subTitle;
     this.backgroundMusic = wordplay.backgroundMusic;
     this.backgroundImage = wordplay.backgroundImage;
-    this.duration = wordplay.duration;
     this.chapters = (wordplay.chapters || []).map(chapter => new Chapter(chapter));
 
     this.init(nodeId);
-    this.render(self);
+    this.render();
     this.chapterController = new ChapterController(this.chapters);
-
   }
 
-  public start(self: WordPlay) {
-    self.clear();
-    this.chapterController.start();
+  public start() {
+    this.clear();
+    this.chapterController.start(this.rootElement);
   }
 
-  private end() {
-    console.log('end');
-  }
+  // private end() {
+  //   console.log('end');
+  // }
 
-  private render(self: WordPlay) {
+  private render() {
     this.wordplayElement = document.createElement('div');
     this.wordplayElement.style.width = '100%';
     this.wordplayElement.style.height = '100%';
     this.rootElement.appendChild(this.wordplayElement);
+    this.enter();
+  }
 
+  private enter() {
     const renderer = new RenderStart();
     renderer.draw(this.wordplayElement, {
       author: this.author,
@@ -63,10 +59,9 @@ export default class WordPlay {
       subTitle: this.subTitle,
       backgroundMusic: this.backgroundMusic,
       backgroundImage: this.backgroundImage,
-      onStart: () => self.start(self),
+      onStart: () => this.start.apply(this),
     });
   }
-
 
   private clear() {
     if (!this.wordplayElement) {
@@ -88,6 +83,10 @@ export default class WordPlay {
     this.setBackgroundColor(this.INIT_NODE_BACKGROUND_COLOR);
   }
 
+  private isValidNode(id: string) : boolean {
+    return !!document.getElementById(id); 
+  }
+
   private setWidth(width: number) {
     if (!this.rootElement.style.width) {
       this.rootElement.style.width = `${width}px`;
@@ -104,9 +103,5 @@ export default class WordPlay {
     if (!this.rootElement.style.backgroundColor) {
       this.rootElement.style.backgroundColor = color;
     }
-  }
-
-  private isValidNode(id: string) : boolean {
-    return !!document.getElementById(id); 
   }
 }
