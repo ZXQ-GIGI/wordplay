@@ -1,4 +1,5 @@
 import Render from './render';
+import { Func } from '../type';
 
 export default class RenderStart extends Render{
   constructor() {
@@ -11,7 +12,7 @@ export default class RenderStart extends Render{
     subTitle?: string,
     backgroundMusic?: string,
     backgroundImage?: string,
-    onStart: () => void
+    onStart: Func
   }) {
     this.drawTitle(parentElement, options.title);
     this.drawSubTitle(parentElement, options.subTitle);
@@ -30,7 +31,7 @@ export default class RenderStart extends Render{
     parentElement.appendChild(authorElement);
   }
 
-  public drawStartButton(parentElement: HTMLElement, onStart: () => void): void {
+  public drawStartButton(parentElement: HTMLElement, onStart: Func): void {
     const startButton = document.createElement('button');
     startButton.className = 'wp_start';
     startButton.innerText = '开始';

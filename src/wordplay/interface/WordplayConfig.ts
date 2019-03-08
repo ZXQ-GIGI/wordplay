@@ -13,8 +13,6 @@ export default interface WordPlayConfig {
   backgroundMusic?: string,
   /** 开场背景图片 */
   backgroundImage?: string,
-  /** 持续时间 */
-  duration?: number,
   /** 章节 */
   chapters?: ChapterConfig[],
 }

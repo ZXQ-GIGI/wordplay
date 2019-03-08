@@ -9,20 +9,16 @@ export default class ChapterController {
 
   constructor(chapters: Chapter[]) {
     this.chapters = chapters;
+    this.current = this.chapters[0].name;
   }
 
-  public start() {
-    this.current = this.chapters[0].name;
-    this.preStart();
+  public start(rootElement: HTMLElement) {
+    const currentChapter = this.getCurrentChapter();
+    currentChapter.start(rootElement);
   }
 
   public end() {
     this.isEnd = true;
-  }
-
-  private preStart() {
-    const currentChapter = this.getCurrentChapter();
-    console.log(currentChapter);
   }
 
   private toNext() {
@@ -40,7 +36,7 @@ export default class ChapterController {
   }
 
   private setCurrentChapter(chapterName: string) {
-    if (!this.existName) {
+    if (!this.existName(chapterName)) {
       throw new Error(`'${chapterName}' is invalid chapter name.`)
     }
     this.current = chapterName;

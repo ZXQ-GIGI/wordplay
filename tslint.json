@@ -13,5 +13,8 @@
     "no-console": false,
     "object-literal-sort-keys": false,
     "interface-name": [true, "never-prefix"]
+  },
+  "jsRules": {
+    "object-literal-sort-keys": false
   }
 }

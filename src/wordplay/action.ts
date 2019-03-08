@@ -1,17 +1,14 @@
 import ActionConfig from './interface/ActionConfig';
+import { ActionTypes } from './type';
 
 export default class Action {
-  public type: string;
+  public type: ActionTypes;
   public name: string;
   public next?: string;
 
   constructor(action: ActionConfig) {
-    this.type = action.type;
+    this.type = 'end';
     this.name = action.name;
     this.next = action.next; 
-  }
-
-  public click() {
-    return;
   }
 }
