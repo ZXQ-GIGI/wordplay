@@ -1,6 +1,11 @@
 import Dialogue from './dialogue';
+import { Func } from './type';
 
 export default class DialogueController {
+  private parentElement: HTMLElement;
+  private nextToEnd: Func;
+  private end: boolean;
+
   private dialogues: Dialogue[];
   private current: string;
 
@@ -9,19 +14,35 @@ export default class DialogueController {
     this.current = this.dialogues[0].name;
   }
 
-  public start(parentElement: HTMLElement) {
+  public start(parentElement: HTMLElement, nextTo?: Func) {
+    if (!this.parentElement) {
+      this.parentElement = parentElement;
+    }
+    if (nextTo) {
+      this.nextToEnd = nextTo;
+    }
     const currentDialogue = this.getCurrentDialogue();
-    currentDialogue.start(parentElement);
+    currentDialogue.start(parentElement, {
+      nextTo: () => this.nextTo.apply(this),
+      jumpTo: (name) => this.jumpTo.apply(this, [name]),
+      endTo: () => this.endTo.apply(this)
+    });
   }  
 
-  private toNext() {
+  private nextTo() {
     const currentIndex = this.dialogues.findIndex(dialogue => dialogue.name === this.current);
-    const nextDialogueName = this.dialogues[currentIndex] && this.dialogues[currentIndex].name;
+    const nextDialogueName = this.dialogues[currentIndex + 1] && this.dialogues[currentIndex + 1].name;
     this.setCurrentDialogue(nextDialogueName);
+    this.start(this.parentElement);
   }
 
-  private jumpToNext(nextDialogueName: string) {
+  private jumpTo(nextDialogueName: string) {
     this.setCurrentDialogue(nextDialogueName);
+    this.start(this.parentElement);
+  }
+
+  private endTo() {
+    this.nextToEnd();
   }
 
   private getCurrentDialogue() {
@@ -36,6 +57,6 @@ export default class DialogueController {
   }
 
   private existName(name: string): boolean {
-    return this.dialogues.filter(dialogue => dialogue.name === this.current).length > 0;
+    return this.dialogues.filter(dialogue => dialogue.name === name).length > 0;
   }
 }

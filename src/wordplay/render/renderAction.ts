@@ -9,7 +9,6 @@ export default class RenderAction extends Render {
     name: string,
     onAction: Func,
   }) {
-    this.clear(parentElement);
     this.drawActionButton(parentElement, options.name, options.onAction);
   }
 

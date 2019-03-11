@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Wordplay from '../wordplay';
 
-import config from '../example/wordplay.js';
+import config from '../example/wordplay.json';
 import './App.css';
 
 class App extends React.Component {

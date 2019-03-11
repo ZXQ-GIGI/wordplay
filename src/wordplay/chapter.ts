@@ -32,20 +32,20 @@ export default class Chapter {
     this.dialogueController = new DialogueController(this.dialogues);
   }
 
-  public start(rootElement: HTMLElement) {
+  public start(rootElement: HTMLElement, nextTo: Func) {
     this.rootElement = rootElement;
-    this.render();
+    this.render(nextTo);
   }
 
-  private render() {
+  private render(nextTo: Func) {
     this.chapterElement = document.createElement('div');
     this.chapterElement.setAttribute('style', 'width: 100%; height: 100%; position: relative');
     this.rootElement.appendChild(this.chapterElement);
-    this.enter();
+    this.enter(nextTo);
   }
 
   /** 章节的入口渲染 */
-  private enter() {
+  private enter(nextTo: Func) {
     const renderer = new RenderChapter();
     renderer.draw(this.chapterElement, {
       title: this.title,
@@ -53,7 +53,7 @@ export default class Chapter {
       backgroundImage: this.backgroundImage,
       backgroundMusic: this.backgroundMusic,
     });
-    this.holdTime(() => this.enterDialogue.apply(this));
+    this.holdTime(() => this.enterDialogue.apply(this, [nextTo]));
   }
 
   private clear() {
@@ -67,8 +67,8 @@ export default class Chapter {
     setTimeout(() => { callback() }, this.duration * Chapter.MS_1000);
   }
 
-  private enterDialogue() {
+  private enterDialogue(nextTo: Func) {
     this.clear();
-    this.dialogueController.start(this.chapterElement);
+    this.dialogueController.start(this.chapterElement, nextTo);
   }
 }

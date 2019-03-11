@@ -24,6 +24,15 @@
             {
               "name": "Action 1",
               "type": "next"
+            },
+            {
+              "name": "Action 2",
+              "type": "jump",
+              "jump": "Dialogue 3"
+            },
+            {
+              "name": "Action 3",
+              "type": "end"
             }
           ]
         },
@@ -36,7 +45,7 @@
             {
               "name": "Action 2",
               "type": "jump",
-              "next": "Dialogue 3"
+              "jump": "Dialogue 1"
             }
           ]
         },
@@ -59,7 +68,7 @@
       "title": "Chapter 2",
       "subTitle": "Do you know? This is Chapter 2.",
       "backgroundMusic": "",
-      "backgroundImage": "http://wx2.sinaimg.cn/mw690/0060lm7Tly1g0u6ceu2mlj31400p0adl.jpg",
+      "backgroundImage": "http://wx3.sinaimg.cn/mw690/0060lm7Tly1g0yybbtl8tj31hc0u0wqm.jpeg",
       "duration": 2,
       "transition": "",
       "dialogues": [
@@ -84,7 +93,7 @@
             {
               "name": "Action 2",
               "type": "jump",
-              "next": "Dialogue 3"
+              "jump": "Dialogue 3"
             }
           ]
         },
