@@ -5,6 +5,8 @@ import DialogueController from './dialogueController';
 import { Func } from './type';
 
 export default class Chapter {
+  private static readonly MS_1000 = 1000;
+
   public rootElement: HTMLElement;
   public chapterElement: HTMLElement;
   public dialogueController: DialogueController;
@@ -62,7 +64,7 @@ export default class Chapter {
   }
 
   private holdTime(callback: Func) {
-    setTimeout(() => { callback() }, this.duration * 1000);
+    setTimeout(() => { callback() }, this.duration * Chapter.MS_1000);
   }
 
   private enterDialogue() {
