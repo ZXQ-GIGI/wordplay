@@ -1,10 +1,15 @@
-import {Func} from '../type';
+import { Func } from '../type';
+import Render from './render';
 
-export default class RenderAction {
+export default class RenderAction extends Render {
+  constructor() {
+    super();
+  }
   public draw(parentElement: HTMLElement, options: {
     name: string,
     onAction: Func,
   }) {
+    this.clear(parentElement);
     this.drawActionButton(parentElement, options.name, options.onAction);
   }
 

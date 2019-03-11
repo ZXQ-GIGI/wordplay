@@ -38,4 +38,11 @@ export default class Render {
     const music = new Music(parentElement, backgroundMusic);
     // music.play();
   }
+
+  public clear(parentElement: HTMLElement) {
+    if (!parentElement) {
+      return;
+    }
+    parentElement.innerHTML = '';
+  }
 }
