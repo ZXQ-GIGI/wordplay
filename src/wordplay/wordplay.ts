@@ -4,6 +4,10 @@ import ChapterController from './chapterController';
 import RenderStart from './render/renderStart';
 
 export default class WordPlay {
+  private static readonly INIT_NODE_WIDTH = 400;
+  private static readonly INIT_NODE_HEIGHT = 300;
+  private static readonly INIT_NODE_BACKGROUND_COLOR = 'rgba(123, 123, 123, .5)';
+
   public rootElement: HTMLElement;
   public wordplayElement: HTMLElement;
   public chapterController: ChapterController;
@@ -15,10 +19,6 @@ export default class WordPlay {
   private backgroundMusic?: string;
   private backgroundImage?: string;
   private chapters?: Chapter[];
-
-  private INIT_NODE_WIDTH = 400;
-  private INIT_NODE_HEIGHT = 300;
-  private INIT_NODE_BACKGROUND_COLOR = 'rgba(123, 123, 123, .5)';
 
   constructor(nodeId = '', wordplay: WordplayConfig) { 
     this.name = wordplay.name;
@@ -72,15 +72,15 @@ export default class WordPlay {
 
   private init(nodeId: string) {
     if (!this.isValidNode(nodeId)) {
-      console.error(`[Valid Node]: '${nodeId}' does not exist.`);
+      console.error(`[Invalid Node]: '${nodeId}' does not exist.`);
       return;
     }
 
     this.rootElement = document.getElementById(nodeId) as HTMLElement;
 
-    this.setWidth(this.INIT_NODE_WIDTH);
-    this.setHeight(this.INIT_NODE_HEIGHT);
-    this.setBackgroundColor(this.INIT_NODE_BACKGROUND_COLOR);
+    this.setWidth(WordPlay.INIT_NODE_WIDTH);
+    this.setHeight(WordPlay.INIT_NODE_HEIGHT);
+    this.setBackgroundColor(WordPlay.INIT_NODE_BACKGROUND_COLOR);
   }
 
   private isValidNode(id: string) : boolean {
