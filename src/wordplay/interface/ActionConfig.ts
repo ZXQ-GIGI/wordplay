@@ -1,7 +1,5 @@
-import { ActionTypes } from '../type';
-
 export default interface ActionConfig {
-  type: ActionTypes,
+  type: string,
   name: string,
   next?: string,
 }

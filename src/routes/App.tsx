@@ -6,7 +6,6 @@ import './App.css';
 
 class App extends React.Component {
   public componentDidMount() {
-    console.log(config);
     const w = new Wordplay('wordplay', config);
     console.log(w);
   }

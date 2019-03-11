@@ -1,7 +1,6 @@
 import DialogueConfig from './interface/DialogueConfig';
 import Action from './action';
 import RenderDialogue from './render/renderDialogue';
-import ActionConfig from './interface/ActionConfig';
 
 export default class Dialogue {
   public parentElement: HTMLElement;
@@ -17,7 +16,7 @@ export default class Dialogue {
     this.narration = dialogue.narration;
     this.caption = dialogue.caption;
     this.duration = dialogue.duration;
-    this.actions = (dialogue.actions || []).map(action => new Action(action as ActionConfig));
+    this.actions = (dialogue.actions || []).map(action => new Action(action));
   }
 
   public start(parentElement: HTMLElement) {
