@@ -3,6 +3,8 @@ import Chapter from './chapter';
 import ChapterController from './chapterController';
 import RenderStart from './render/renderStart';
 import Cleaner from './render/cleaner';
+import RenderEnd from './render/renderEnd';
+import { string } from 'prop-types';
 
 export default class WordPlay {
   private static readonly INIT_NODE_WIDTH = 400;
@@ -18,6 +20,7 @@ export default class WordPlay {
   private subTitle?: string;
   private backgroundMusic?: string;
   private backgroundImage?: string;
+  private conclusion?: string;
   private chapters?: Chapter[];
 
   constructor(nodeId = '', wordplay: WordplayConfig) { 
@@ -27,6 +30,7 @@ export default class WordPlay {
     this.subTitle = wordplay.subTitle;
     this.backgroundMusic = wordplay.backgroundMusic;
     this.backgroundImage = wordplay.backgroundImage;
+    this.conclusion = wordplay.conclusion;
     this.chapters = (wordplay.chapters || []).map(chapter => new Chapter(chapter));
 
     this.init(nodeId);
@@ -47,8 +51,16 @@ export default class WordPlay {
 
   private start() {
     this.clear();
-    this.chapterController = new ChapterController(this.rootElement, this.chapters);
+    this.chapterController = new ChapterController(this.rootElement, () => this.end.apply(this), this.chapters);
     this.chapterController.ready();
+  }
+
+  private end() {
+    this.clear();
+    const renderer = new RenderEnd();
+    renderer.draw(this.rootElement, {
+      conclusion: this.conclusion,
+    });
   }
 
   private clear() {

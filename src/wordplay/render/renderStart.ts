@@ -43,10 +43,4 @@ export default class RenderStart extends Render{
     startButton.onclick = onStart;
     this.wrapperElement.appendChild(startButton);
   }
-
-  // private initWrapperElement() {
-  //   this.wrapperElement = document.createElement('div');
-  //   this.wrapperElement.style.width = '100%';
-  //   this.wrapperElement.style.height = '100%';
-  // }
 }

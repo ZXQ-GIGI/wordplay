@@ -1,5 +1,6 @@
 import Chapter from './chapter';
 import Cleaner from './render/cleaner';
+import { Func } from './type';
 
 export default class ChapterController {
   
@@ -7,12 +8,13 @@ export default class ChapterController {
   private chapters: Chapter[];
 
   private current: string;
-  private isEnd: boolean;
+  private onEnd: Func;
 
-  constructor(rootElement: HTMLElement, chapters?: Chapter[]) {
+  constructor(rootElement: HTMLElement, onEnd: Func, chapters?: Chapter[]) {
     this.rootElement = rootElement;
     this.chapters = chapters || [];
     this.current = this.chapters[0].name;
+    this.onEnd = onEnd;
   }
 
   public ready() {
@@ -21,16 +23,11 @@ export default class ChapterController {
     currentChapter.start(this.rootElement, () => this.onNext.apply(this));
   }
 
-  public end() {
-    this.isEnd = true;
-  }
-
   private onNext() {
     const currentIndex = this.chapters.findIndex(chapter => chapter.name === this.current);
     const nextChapterIndex = currentIndex + 1;
     if (nextChapterIndex === this.chapters.length) {
-      // TODO: end
-      console.log('The wordplay is over');
+      this.onEnd();
       return;
     }
     const nextChapterName = this.chapters[nextChapterIndex] && this.chapters[nextChapterIndex].name;
