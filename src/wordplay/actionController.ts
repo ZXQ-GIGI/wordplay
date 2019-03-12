@@ -1,17 +1,41 @@
 import Action from './action';
 import { ActionCallbacks } from './interface/ActionCallbacks';
+// import { Func } from './type';
 
 export default class ActionController {
+  private parentElement: HTMLElement;
   private actions?: Action[];
-  constructor(actions: Action[]) {
-    this.actions = actions;
+
+  // private onNext: Func;
+  // private onJump: (name: string) => Func;
+  // private onEnd: Func;
+
+  private actionCallbacks: ActionCallbacks;
+
+  constructor(parentElement: HTMLElement, actions: Action[], actionCallbacks: ActionCallbacks) {
+    this.parentElement = parentElement;
+    this.actions = actions || [];
+    // this.initEvents(actionCallbacks);
+    this.actionCallbacks = actionCallbacks;
   }
 
-  public start(parentElement: HTMLElement, actionCallbacks: ActionCallbacks) {
-    this.render(parentElement, actionCallbacks);
+  public ready() {
+    this.render(this.actionCallbacks);
   }
 
-  private render(parentElement: HTMLElement, actionCallbacks: ActionCallbacks) {
+  // private initEvents(actionCallbacks: ActionCallbacks) {
+  //   if (actionCallbacks.onNext) {
+  //     this.onNext = actionCallbacks.onNext;
+  //   }
+  //   if (actionCallbacks.onJump) {
+  //     this.onJump = (name: string) => actionCallbacks.onJump(name);
+  //   }
+  //   if (actionCallbacks.onEnd) {
+  //     this.onEnd = actionCallbacks.onEnd;
+  //   }
+  // }
+
+  private render(actionCallbacks: ActionCallbacks) {
     if (!this.actions) {
       return;
     }
@@ -20,6 +44,6 @@ export default class ActionController {
     this.actions.forEach(action => {
       action.start(actionsWrapper, actionCallbacks);
     });
-    parentElement.appendChild(actionsWrapper);
+    this.parentElement.appendChild(actionsWrapper);
   }
 }

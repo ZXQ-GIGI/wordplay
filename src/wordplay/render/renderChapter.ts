@@ -10,10 +10,14 @@ export default class RenderChapter extends Render {
     backgroundMusic?: string,
     backgroundImage?: string,
   }) {
-    this.clear(parentElement);
-    this.drawTitle(parentElement, options.title);
-    this.drawSubTitle(parentElement, options.subTitle);
-    this.drawBackgroundMusic(parentElement, options.backgroundMusic);
-    this.drawBackgroundImage(parentElement, options.backgroundImage);
+    this.clear();
+    this.initWrapperElement();
+    // console.log(this.wrapperElement);
+    parentElement.appendChild(this.wrapperElement);
+
+    this.drawTitle(options.title);
+    this.drawSubTitle(options.subTitle);
+    this.drawBackgroundMusic(options.backgroundMusic);
+    this.drawBackgroundImage(options.backgroundImage);
   }
 }

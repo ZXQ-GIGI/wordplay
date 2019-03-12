@@ -1,4 +1,5 @@
 import Dialogue from './dialogue';
+import Cleaner from './render/cleaner';
 import { Func } from './type';
 
 export default class DialogueController {
@@ -9,39 +10,36 @@ export default class DialogueController {
   private dialogues: Dialogue[];
   private current: string;
 
-  constructor(dialogues: Dialogue[]) {
-    this.dialogues = dialogues;
+  constructor(parentElement: HTMLElement, onNext: Func, dialogues?: Dialogue[]) {
+    this.parentElement = parentElement;
+    this.dialogues = dialogues || [];
     this.current = this.dialogues[0].name;
+    this.nextToEnd = onNext;
   }
 
-  public start(parentElement: HTMLElement, nextTo?: Func) {
-    if (!this.parentElement) {
-      this.parentElement = parentElement;
-    }
-    if (nextTo) {
-      this.nextToEnd = nextTo;
-    }
+  public ready() {
+    this.clear();
     const currentDialogue = this.getCurrentDialogue();
-    currentDialogue.start(parentElement, {
-      nextTo: () => this.nextTo.apply(this),
-      jumpTo: (name) => this.jumpTo.apply(this, [name]),
-      endTo: () => this.endTo.apply(this)
+    currentDialogue.start(this.parentElement, {
+      onNext: () => this.onNext.apply(this),
+      onJump: (name) => this.onJump.apply(this, [name]),
+      onEnd: () => this.onEnd.apply(this)
     });
   }  
 
-  private nextTo() {
+  private onNext() {
     const currentIndex = this.dialogues.findIndex(dialogue => dialogue.name === this.current);
     const nextDialogueName = this.dialogues[currentIndex + 1] && this.dialogues[currentIndex + 1].name;
     this.setCurrentDialogue(nextDialogueName);
-    this.start(this.parentElement);
+    this.ready();
   }
 
-  private jumpTo(nextDialogueName: string) {
+  private onJump(nextDialogueName: string) {
     this.setCurrentDialogue(nextDialogueName);
-    this.start(this.parentElement);
+    this.ready();
   }
 
-  private endTo() {
+  private onEnd() {
     this.nextToEnd();
   }
 
@@ -58,5 +56,10 @@ export default class DialogueController {
 
   private existName(name: string): boolean {
     return this.dialogues.filter(dialogue => dialogue.name === name).length > 0;
+  }
+
+  private clear() {
+    const cleaner = new Cleaner();
+    cleaner.do(this.parentElement);
   }
 }

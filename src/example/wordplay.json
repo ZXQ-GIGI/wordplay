@@ -20,6 +20,7 @@
           "narration": "",
           "caption": "This is Dialogue 1",
           "duration": 0,
+          "backgroundImage": "http://wx3.sinaimg.cn/mw690/0060lm7Tly1g10302b3mgj31pm0u07wj.jpg",
           "actions": [
             {
               "name": "Action 1",

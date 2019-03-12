@@ -1,4 +1,5 @@
 import Chapter from './chapter';
+import Cleaner from './render/cleaner';
 
 export default class ChapterController {
   
@@ -8,29 +9,33 @@ export default class ChapterController {
   private current: string;
   private isEnd: boolean;
 
-  constructor(chapters: Chapter[]) {
-    this.chapters = chapters;
+  constructor(rootElement: HTMLElement, chapters?: Chapter[]) {
+    this.rootElement = rootElement;
+    this.chapters = chapters || [];
     this.current = this.chapters[0].name;
   }
 
-  public start(rootElement: HTMLElement) {
-    if (!this.rootElement) {
-      this.rootElement = rootElement;
-    }
+  public ready() {
+    this.clear();
     const currentChapter = this.getCurrentChapter();
-    currentChapter.start(rootElement, () => this.nextTo.apply(this));
+    currentChapter.start(this.rootElement, () => this.onNext.apply(this));
   }
 
   public end() {
     this.isEnd = true;
   }
 
-  private nextTo() {
+  private onNext() {
     const currentIndex = this.chapters.findIndex(chapter => chapter.name === this.current);
-    const nextChapterName = this.chapters[currentIndex + 1] && this.chapters[currentIndex + 1].name;
+    const nextChapterIndex = currentIndex + 1;
+    if (nextChapterIndex === this.chapters.length) {
+      // TODO: end
+      console.log('The wordplay is over');
+      return;
+    }
+    const nextChapterName = this.chapters[nextChapterIndex] && this.chapters[nextChapterIndex].name;
     this.setCurrentChapter(nextChapterName);
-    this.clear();
-    this.start(this.rootElement);
+    this.ready();
   }
 
   private getCurrentChapter(): Chapter {
@@ -49,9 +54,7 @@ export default class ChapterController {
   }
 
   private clear() {
-    if (!this.rootElement) {
-      return;
-    }
-    this.rootElement.innerHTML = '';
+    const cleaner = new Cleaner();
+    cleaner.do(this.rootElement);
   }
 }

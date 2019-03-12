@@ -5,19 +5,24 @@ export default class RenderDialogue extends Render {
     super();
   }
   public draw(parentElement: HTMLElement, options: {
+    backgroundImage?: string,
     narration?: string,
     caption?: string,
   }) {
-    this.clear(parentElement);
-    this.drawNarration(parentElement, options.narration);
-    this.drawCaption(parentElement, options.caption);
+    this.clear();
+    this.initWrapperElement();
+    parentElement.appendChild(this.wrapperElement);
+
+    this.drawBackgroundImage(options.backgroundImage);
+    this.drawNarration(options.narration);
+    this.drawCaption(options.caption);
   }
 
-  private drawNarration(parentElement: HTMLElement, narration?: string) {
-    this.drawBackgroundMusic(parentElement, narration);
+  private drawNarration(narration?: string) {
+    this.drawBackgroundMusic(narration);
   }
 
-  private drawCaption(parentElement: HTMLElement, caption?: string) {
+  private drawCaption(caption?: string) {
     if (!caption) {
       return;
     }
@@ -27,6 +32,6 @@ export default class RenderDialogue extends Render {
     const text = document.createElement('span');
     text.innerText = caption;
     captionElement.appendChild(text);
-    parentElement.appendChild(captionElement);
+    this.wrapperElement.append(captionElement);
   }
 }

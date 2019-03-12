@@ -38,13 +38,13 @@ export default class Action {
       return;
     }
     if (this.type === Action.TYPE_NEXT) {
-      this.onAction = actionCallbacks.nextTo;
+      this.onAction = actionCallbacks.onNext;
     }
     if (this.type === Action.TYPE_JUMP) {
-      this.onAction = actionCallbacks.jumpTo;
+      this.onAction = actionCallbacks.onJump;
     }
     if (this.type === Action.TYPE_END) {
-      this.onAction = actionCallbacks.endTo;
+      this.onAction = actionCallbacks.onEnd;
     }
   }
 

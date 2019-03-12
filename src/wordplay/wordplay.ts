@@ -2,6 +2,7 @@ import WordplayConfig from './interface/WordplayConfig';
 import Chapter from './chapter';
 import ChapterController from './chapterController';
 import RenderStart from './render/renderStart';
+import Cleaner from './render/cleaner';
 
 export default class WordPlay {
   private static readonly INIT_NODE_WIDTH = 400;
@@ -9,7 +10,6 @@ export default class WordPlay {
   private static readonly INIT_NODE_BACKGROUND_COLOR = 'rgba(123, 123, 123, .5)';
 
   public rootElement: HTMLElement;
-  public wordplayElement: HTMLElement;
   public chapterController: ChapterController;
 
   private name: string;
@@ -30,30 +30,12 @@ export default class WordPlay {
     this.chapters = (wordplay.chapters || []).map(chapter => new Chapter(chapter));
 
     this.init(nodeId);
-    this.render();
-    this.chapterController = new ChapterController(this.chapters);
-  }
-
-  public start() {
-    this.clear();
-    this.chapterController.start(this.rootElement);
-  }
-
-  // private end() {
-  //   console.log('end');
-  // }
-
-  private render() {
-    this.wordplayElement = document.createElement('div');
-    this.wordplayElement.style.width = '100%';
-    this.wordplayElement.style.height = '100%';
-    this.rootElement.appendChild(this.wordplayElement);
     this.enter();
   }
 
   private enter() {
     const renderer = new RenderStart();
-    renderer.draw(this.wordplayElement, {
+    renderer.draw(this.rootElement, {
       author: this.author,
       title: this.title,
       subTitle: this.subTitle,
@@ -63,11 +45,15 @@ export default class WordPlay {
     });
   }
 
+  private start() {
+    this.clear();
+    this.chapterController = new ChapterController(this.rootElement, this.chapters);
+    this.chapterController.ready();
+  }
+
   private clear() {
-    if (!this.wordplayElement) {
-      return;
-    }
-    this.rootElement.removeChild(this.wordplayElement);
+    const cleaner = new Cleaner();
+    cleaner.do(this.rootElement);
   }
 
   private init(nodeId: string) {

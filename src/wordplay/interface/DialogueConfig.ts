@@ -9,6 +9,8 @@ export default interface DialogueConfig {
   caption?: string,
   /** 持续时长 */
   duration?: number,
+  /** 背景图片 */
+  backgroundImage?: string,
   /** 行为 */
   actions?: ActionConfig[],
 }

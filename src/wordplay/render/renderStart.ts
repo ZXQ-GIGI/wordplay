@@ -2,6 +2,7 @@ import Render from './render';
 import { Func } from '../type';
 
 export default class RenderStart extends Render{
+
   constructor() {
     super();
   }
@@ -14,29 +15,38 @@ export default class RenderStart extends Render{
     backgroundImage?: string,
     onStart: Func
   }) {
-    this.drawTitle(parentElement, options.title);
-    this.drawSubTitle(parentElement, options.subTitle);
-    this.drawStartButton(parentElement, options.onStart);
-    this.drawAuthor(parentElement, options.author);
-    this.drawBackgroundMusic(parentElement, options.backgroundMusic);
-    this.drawBackgroundImage(parentElement, options.backgroundImage);
+    this.initWrapperElement();
+    parentElement.appendChild(this.wrapperElement);
+    
+    this.drawTitle(options.title);
+    this.drawSubTitle(options.subTitle);
+    this.drawStartButton(options.onStart);
+    this.drawAuthor(options.author);
+    this.drawBackgroundMusic(options.backgroundMusic);
+    this.drawBackgroundImage(options.backgroundImage);
   }
 
-  public drawAuthor(parentElement: HTMLElement, author: string) {
+  public drawAuthor(author: string) {
     const authorElement = document.createElement('div');
     authorElement.className = 'wp_author';
     const text = document.createElement('span');
     text.innerText = author;
     authorElement.appendChild(text);
-    parentElement.appendChild(authorElement);
+    this.wrapperElement.appendChild(authorElement);
   }
 
-  public drawStartButton(parentElement: HTMLElement, onStart: Func): void {
+  public drawStartButton(onStart: Func): void {
     const startButton = document.createElement('button');
     startButton.className = 'wp_start';
     startButton.innerText = '开始';
     startButton.style.color = '#fff';
     startButton.onclick = onStart;
-    parentElement.appendChild(startButton);
+    this.wrapperElement.appendChild(startButton);
   }
+
+  // private initWrapperElement() {
+  //   this.wrapperElement = document.createElement('div');
+  //   this.wrapperElement.style.width = '100%';
+  //   this.wrapperElement.style.height = '100%';
+  // }
 }

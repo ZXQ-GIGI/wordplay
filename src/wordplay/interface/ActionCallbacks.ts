@@ -1,7 +1,7 @@
 import { Func } from '../type';
 
 export interface ActionCallbacks {
-  nextTo: Func,
-  jumpTo: (name: string) => Func,
-  endTo: Func
+  onNext: Func,
+  onJump: (name: string) => Func,
+  onEnd: Func
 }
