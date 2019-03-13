@@ -16,5 +16,5 @@ export default interface ChapterConfig {
   /** 换场时间 */
   transition?: string,
   /** 对白 */
-  dialogues?: DialogueConfig[],
+  dialogues: DialogueConfig[],
 }

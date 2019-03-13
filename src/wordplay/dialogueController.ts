@@ -4,20 +4,23 @@ import { Func } from './type';
 
 export default class DialogueController {
   private parentElement: HTMLElement;
-  private nextToEnd: Func;
-  private end: boolean;
+  private onEnd: Func;
 
   private dialogues: Dialogue[];
   private current: string;
 
-  constructor(parentElement: HTMLElement, onNext: Func, dialogues?: Dialogue[]) {
+  constructor(parentElement: HTMLElement, dialogues: Dialogue[], onNext: Func) {
     this.parentElement = parentElement;
-    this.dialogues = dialogues || [];
+    this.dialogues = dialogues;
     this.current = this.dialogues[0].name;
-    this.nextToEnd = onNext;
+    this.onEnd = onNext;
   }
 
   public ready() {
+    if (!this.canReady()) {
+      console.warn(`The property 'dialogues' is []`);
+      return;
+    }
     this.clear();
     const currentDialogue = this.getCurrentDialogue();
     currentDialogue.start(this.parentElement, {
@@ -39,10 +42,6 @@ export default class DialogueController {
     this.ready();
   }
 
-  private onEnd() {
-    this.nextToEnd();
-  }
-
   private getCurrentDialogue() {
     return this.dialogues.filter(dialogue => dialogue.name === this.current)[0];
   }
@@ -61,5 +60,9 @@ export default class DialogueController {
   private clear() {
     const cleaner = new Cleaner();
     cleaner.do(this.parentElement);
+  }
+
+  private canReady() {
+    return !!this.dialogues.length;
   }
 }

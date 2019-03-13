@@ -14,24 +14,22 @@ export default class WordPlay {
   public rootElement: HTMLElement;
   public chapterController: ChapterController;
 
-  private name: string;
   private author: string;
   private title: string;
   private subTitle?: string;
   private backgroundMusic?: string;
   private backgroundImage?: string;
   private conclusion?: string;
-  private chapters?: Chapter[];
+  private chapters: Chapter[];
 
   constructor(nodeId = '', wordplay: WordplayConfig) { 
-    this.name = wordplay.name;
     this.author = wordplay.author;
     this.title = wordplay.title;
     this.subTitle = wordplay.subTitle;
     this.backgroundMusic = wordplay.backgroundMusic;
     this.backgroundImage = wordplay.backgroundImage;
     this.conclusion = wordplay.conclusion;
-    this.chapters = (wordplay.chapters || []).map(chapter => new Chapter(chapter));
+    this.chapters = wordplay.chapters.map(chapter => new Chapter(chapter));
 
     this.init(nodeId);
     this.enter();
@@ -51,7 +49,7 @@ export default class WordPlay {
 
   private start() {
     this.clear();
-    this.chapterController = new ChapterController(this.rootElement, () => this.end.apply(this), this.chapters);
+    this.chapterController = new ChapterController(this.rootElement, this.chapters, () => this.end.apply(this));
     this.chapterController.ready();
   }
 

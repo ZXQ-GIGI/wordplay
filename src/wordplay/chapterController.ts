@@ -10,14 +10,18 @@ export default class ChapterController {
   private current: string;
   private onEnd: Func;
 
-  constructor(rootElement: HTMLElement, onEnd: Func, chapters?: Chapter[]) {
+  constructor(rootElement: HTMLElement, chapters: Chapter[], onEnd: Func) {
     this.rootElement = rootElement;
-    this.chapters = chapters || [];
-    this.current = this.chapters[0].name;
+    this.chapters = chapters;
+    this.current = this.chapters[0] && this.chapters[0].name;
     this.onEnd = onEnd;
   }
 
   public ready() {
+    if (!this.canReady) {
+      console.warn(`The property 'chapters' is []`);
+      return;
+    }
     this.clear();
     const currentChapter = this.getCurrentChapter();
     currentChapter.start(this.rootElement, () => this.onNext.apply(this));
@@ -53,5 +57,9 @@ export default class ChapterController {
   private clear() {
     const cleaner = new Cleaner();
     cleaner.do(this.rootElement);
+  }
+
+  private canReady() {
+    return !!this.chapters.length;
   }
 }

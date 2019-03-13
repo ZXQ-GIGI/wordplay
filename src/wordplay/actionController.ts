@@ -1,39 +1,21 @@
 import Action from './action';
 import { ActionCallbacks } from './interface/ActionCallbacks';
-// import { Func } from './type';
 
 export default class ActionController {
   private parentElement: HTMLElement;
-  private actions?: Action[];
-
-  // private onNext: Func;
-  // private onJump: (name: string) => Func;
-  // private onEnd: Func;
+  private actions: Action[];
 
   private actionCallbacks: ActionCallbacks;
 
   constructor(parentElement: HTMLElement, actions: Action[], actionCallbacks: ActionCallbacks) {
     this.parentElement = parentElement;
-    this.actions = actions || [];
-    // this.initEvents(actionCallbacks);
+    this.actions = actions;
     this.actionCallbacks = actionCallbacks;
   }
 
   public ready() {
     this.render(this.actionCallbacks);
   }
-
-  // private initEvents(actionCallbacks: ActionCallbacks) {
-  //   if (actionCallbacks.onNext) {
-  //     this.onNext = actionCallbacks.onNext;
-  //   }
-  //   if (actionCallbacks.onJump) {
-  //     this.onJump = (name: string) => actionCallbacks.onJump(name);
-  //   }
-  //   if (actionCallbacks.onEnd) {
-  //     this.onEnd = actionCallbacks.onEnd;
-  //   }
-  // }
 
   private render(actionCallbacks: ActionCallbacks) {
     if (!this.actions) {

@@ -1,8 +1,6 @@
 import ChapterConfig from './ChapterConfig';
 
 export default interface WordPlayConfig {
-  /** 游戏名称 */
-  name: string,
   /** 游戏作者 */
   author: string,
   /** 游戏标题 */
@@ -16,5 +14,5 @@ export default interface WordPlayConfig {
   /** 结束语 */
   conclusion: string,
   /** 章节 */
-  chapters?: ChapterConfig[],
+  chapters: ChapterConfig[],
 }

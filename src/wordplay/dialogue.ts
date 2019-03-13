@@ -22,16 +22,17 @@ export default class Dialogue {
     this.caption = dialogue.caption;
     this.duration = dialogue.duration;
     this.backgroundImage = dialogue.backgroundImage;
-    this.actions = (dialogue.actions || []).map(action => new Action(action));
+    this.actions = (dialogue.actions && dialogue.actions.map(action => new Action(action))) || [];
   }
 
   public start(parentElement: HTMLElement, actionCallbacks: ActionCallbacks) {
     this.parentElement = parentElement;
     this.render();
 
-    if (!this.actions) {
+    if (!this.actions || !this.actions.length) {
       return;
     }
+
     this.actionController = new ActionController(this.dialogueElement, this.actions, {
       onNext: actionCallbacks.onNext,
       onJump: actionCallbacks.onJump,

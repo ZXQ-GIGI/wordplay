@@ -19,7 +19,7 @@ export default class Chapter {
   public backgroundImage?: string;
   public duration: number;
   public transition?: string;
-  public dialogues?: Dialogue[];
+  public dialogues: Dialogue[];
 
   private onNext: Func;
 
@@ -31,7 +31,7 @@ export default class Chapter {
     this.backgroundImage = chapter.backgroundImage;
     this.duration = chapter.duration || 1;
     this.transition = chapter.transition;
-    this.dialogues = (chapter.dialogues || []).map(dialogue => new Dialogue(dialogue));
+    this.dialogues = chapter.dialogues.map(dialogue => new Dialogue(dialogue));
   }
 
   public start(rootElement: HTMLElement, onNext: Func) {
@@ -63,7 +63,7 @@ export default class Chapter {
 
   private enterDialogue() {
     this.clear();
-    this.dialogueController = new DialogueController(this.rootElement, this.onNext, this.dialogues);
+    this.dialogueController = new DialogueController(this.rootElement, this.dialogues, this.onNext);
     this.dialogueController.ready();
   }
 }
