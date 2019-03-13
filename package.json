@@ -1,7 +1,9 @@
 {
   "name": "wordplay",
   "version": "0.1.0",
-  "private": true,
+  "main": "lib/index.js",
+  "author": "gigizhaoo",
+  "license": "MIT",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "react": "^16.7.0",
@@ -12,13 +14,21 @@
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "prepare": "rimraf lib && babel src/wordplay --out-dir lib --extensions \".ts,.tsx\""
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/plugin-proposal-export-default-from": "^7.2.0",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-typescript": "^7.3.3",
     "@types/jest": "^23.3.13",
     "@types/node": "^10.12.18",
     "@types/react": "^16.7.20",
     "@types/react-dom": "^16.0.11",
+    "rimraf": "^2.6.3",
     "typescript": "^3.2.4"
   }
 }
