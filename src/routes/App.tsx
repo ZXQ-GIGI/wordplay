@@ -1,12 +1,13 @@
 import * as React from 'react';
-import Wordplay from '../wordplay';
+// import Wordplay from 'wordplay-component';
+import WordPlay from 'wordplay';
 
 import config from '../example/wordplay.json';
 import './App.css';
 
 class App extends React.Component {
   public componentDidMount() {
-    const w = new Wordplay('wordplay', config);
+    const w = new WordPlay('wordplay', config);
     console.log(w);
   }
   public render() {

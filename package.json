@@ -1,6 +1,7 @@
 {
-  "name": "wordplay",
+  "name": "wordplay-generater",
   "version": "0.1.0",
+  "private": true,
   "main": "lib/index.js",
   "author": "gigizhaoo",
   "license": "MIT",
@@ -14,8 +15,7 @@
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject",
-    "prepare": "rimraf lib && babel src/wordplay --out-dir lib --extensions \".ts,.tsx\""
+    "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
