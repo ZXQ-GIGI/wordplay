@@ -1,2 +1,2 @@
-export type Func = () => void;
+type Func = () => void;
 

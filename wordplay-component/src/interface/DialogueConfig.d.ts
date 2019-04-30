@@ -1,0 +1,16 @@
+/// <reference path="ActionConfig.d.ts" />
+
+declare interface DialogueConfig {
+  /** 对话名称 */
+  name: string,
+  /** 旁白 */
+  narration?: string,
+  /** 字幕 */
+  caption?: string,
+  /** 持续时长 */
+  duration?: number,
+  /** 背景图片 */
+  backgroundImage?: string,
+  /** 行为 */
+  actions?: ActionConfig[],
+}
